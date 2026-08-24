@@ -8,6 +8,7 @@ using namespace std;
 
 int main()
 {
+std::cerr << ">>> Entering main()" << std::endl;
    int i, x;
    char str[100];
 
@@ -41,5 +42,6 @@ int main()
       default:
          cout << "\nInvalid Input !!!\n";
    }
+std::cerr << "<<< Exiting main()" << std::endl;
    return 0;
 }

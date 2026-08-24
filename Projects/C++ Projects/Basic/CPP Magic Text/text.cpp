@@ -2,6 +2,7 @@
 using namespace std;
 int main()
 {
+	std::cerr << ">>> Entering main()" << std::endl;
     char str[100];
    
    
@@ -13,6 +14,7 @@ int main()
    
     
     for(int b=0;str[b]!='\0';b++){
+		std::cerr << "main(): b → " << b << std::endl;
         
         switch(str[b])
     {
@@ -638,6 +640,7 @@ int main()
         cout<<"\n  ####  ";
         cout<<"\n \n     ";
         break;
+	std::cerr << "<<< Exiting main()" << std::endl;
         }
      
    case '.':
