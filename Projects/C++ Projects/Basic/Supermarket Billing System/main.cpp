@@ -19,10 +19,12 @@ COORD coord = {0, 0};
 
 void gotoxy(int x, int y)
 {
+	std::cerr << ">>> Entering gotoxy(x=" << x << ",y=" << y << ")" << std::endl;
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cerr << "<<< Exiting gotoxy(x=" << x << ",y=" << y << ")" << std::endl;
 }
 struct date
 {
@@ -40,9 +42,11 @@ class item
 public:
     void add()
     {
+		std::cerr << ">>> Entering add()" << std::endl;
         cout<<"\n\n\tItem No: ";
         cin>>itemno;
         cout<<"\n\n\tName of the item: ";
+		std::cerr << "<<< Exiting add()" << std::endl;
         cin>>name;
 //gets(name);
         cout<<"\n\n\tManufacturing Date(dd-mm-yy): ";
@@ -50,22 +54,28 @@ public:
     }
     void show()
     {
+		std::cerr << ">>> Entering show()" << std::endl;
         cout<<"\n\tItem No: ";
         cout<<itemno;
         cout<<"\n\n\tName of the item: ";
         cout<<name;
         cout<<"\n\n\tDate : ";
         cout<<d.mm<<"-"<<d.dd<<"-"<<d.yy;
+		std::cerr << "<<< Exiting show()" << std::endl;
     }
     void report()
     {
+		std::cerr << ">>> Entering report()" << std::endl;
         gotoxy(3,k);
         cout<<itemno;
         gotoxy(13,k);
         puts(name);
+		std::cerr << "<<< Exiting report()" << std::endl;
     }
     int retno()
     {
+		std::cerr << ">>> Entering retno()" << std::endl;
+		std::cerr << "<<< Exiting retno()" << std::endl;
         return(itemno);
 
     }
@@ -83,12 +93,15 @@ public:
     void pay();
     float retnetamt()
     {
+		std::cerr << ">>> Entering retnetamt()" << std::endl;
+		std::cerr << "<<< Exiting retnetamt()" << std::endl;
         return(netamt);
     }
 } amt;
 
 void amount::add()
 {
+	std::cerr << ">>> Entering amount::add()" << std::endl;
     item::add();
     cout<<"\n\n\tPrice: ";
     cin>>price;
@@ -101,24 +114,31 @@ void amount::add()
     calculate();
     fout.write((char *)&amt,sizeof(amt));
     fout.close();
+	std::cerr << "<<< Exiting amount::add()" << std::endl;
 }
 void amount::calculate()
 {
+	std::cerr << ">>> Entering amount::calculate()" << std::endl;
+	std::cerr << "amount::calculate(): netamt → " << netamt << std::endl;
+	std::cerr << "amount::calculate(): gross → " << gross << std::endl;
     gross=price+(price*(tax/100));
     netamt=qty*(gross-(gross*(dis/100)));
 }
 void amount::show()
 {
+	std::cerr << ">>> Entering amount::show()" << std::endl;
     fin.open("itemstore.dat",ios::binary);
     fin.read((char*)&amt,sizeof(amt));
     item::show();
     cout<<"\n\n\tNet amount: ";
     cout<<netamt;
     fin.close();
+	std::cerr << "<<< Exiting amount::show()" << std::endl;
 }
 
 void amount::report()
 {
+	std::cerr << ">>> Entering amount::report()" << std::endl;
     item::report();
     gotoxy(23,k);
     cout<<price;
@@ -155,10 +175,12 @@ void amount::report()
         gotoxy(64,5);
         cout<<"NET AMOUNT";
     }
+	std::cerr << "<<< Exiting amount::report()" << std::endl;
 }
 
 void amount::pay()
 {
+	std::cerr << ">>> Entering amount::pay()" << std::endl;
     show();
     cout<<"\n\n\n\t\t*********************************************";
     cout<<"\n\t\t                 DETAILS                  ";
@@ -169,13 +191,17 @@ void amount::pay()
     cout<<"\n\t\tDISCOUNT PERCENTAGE         :"<<dis;
     cout<<"\n\n\n\t\tNET AMOUNT              :Rs."<<netamt;
     cout<<"\n\t\t*********************************************";
+	std::cerr << "<<< Exiting amount::pay()" << std::endl;
 }
 
 int main()
 {
+	std::cerr << ">>> Entering main()" << std::endl;
     cout.setf(ios::fixed);
     cout.setf(ios::showpoint);
+	std::cerr << "main(): cout → " << cout << std::endl;
     cout<<setprecision(2);
+	std::cerr << "<<< Exiting main()" << std::endl;
     fstream tmp("temp.dat",ios::binary|ios::out);
 menu:
     system("cls");
@@ -232,6 +258,7 @@ ss:
             }
             fin.seekg(0);
             gtotal=0;
+			std::cerr << "main(): gtotal → " << gtotal << std::endl;
             while(!fin.eof())
             {
                 fin.read((char*)&amt,sizeof(amt));
@@ -245,6 +272,7 @@ ss:
             }
             gotoxy(17,k);
             cout<<"\n\n\n\t\t\tGrand Total="<<gtotal;
+			std::cerr << "main(): Total → " << Total << std::endl;
             getch();
             fin.close();
         }
@@ -279,6 +307,7 @@ db:
             int ino;
             flag=0;
             cout<<"\n\n\tEnter Item Number to be Edited :";
+			std::cerr << "main(): flag → " << flag << std::endl;
             cin>>ino;
             fin.open("itemstore.dat",ios::binary);
             fout.open("itemstore.dat",ios::binary|ios::app);
@@ -295,6 +324,7 @@ db:
                 if(!fin.eof())
                 {
                     int x=amt.item::retno();
+					std::cerr << "main(): x → " << x << std::endl;
                     if(x==ino)
                     {
                         flag=1;

@@ -61,6 +61,7 @@ char str2[] = {
 };
 
 void typeit(int x, int y, int spacing, char string[]) {
+fprintf(stderr, ">>> Entering typeit(x=%d,y=%d,spacing=%d,string=%s)\n", x, y, spacing, string);
   char temp[2];
   for (int i = 0; i < strlen(string); i++) {
     delay(100);
@@ -69,8 +70,10 @@ void typeit(int x, int y, int spacing, char string[]) {
     outtextxy(x + (i + 1) * spacing, y, temp);
   } //endfor
 
+fprintf(stderr, "<<< Exiting typeit(x=%d,y=%d,spacing=%d,string=%s)\n", x, y, spacing, string);
 }
 void front() {
+fprintf(stderr, ">>> Entering front()\n");
   int x, y, h;
   for (x = 0; x <= 100; x++) {
     settextjustify(CENTER_TEXT, CENTER_TEXT);
@@ -124,6 +127,7 @@ void front() {
   getch();
   //closegraph();
 
+fprintf(stderr, "<<< Exiting front()\n");
 }
 
 char input();
@@ -138,6 +142,7 @@ void basecng(double, double);
 //***********************************************************
 
 void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color) {
+fprintf(stderr, ">>> Entering button_3d(x1=%d,y1=%d,x2=%d,y2=%d,check=%d,text=%s,color=%s)\n", x1, y1, x2, y2, check, text, color);
   int up, low;
   setfillstyle(1, 7);
   bar(x1, y1, x2, y2);
@@ -161,6 +166,7 @@ void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color
   settextjustify(CENTER_TEXT, CENTER_TEXT);
   outtextxy(x1 + (x2 - x1) / 2, (y1 + (y2 - y1) / 2) - 2, text);
 
+fprintf(stderr, "<<< Exiting button_3d(x1=%d,y1=%d,x2=%d,y2=%d,check=%d,text=%s,color=%s)\n", x1, y1, x2, y2, check, text, color);
 }
 //********************************************************************
 // *
@@ -169,10 +175,13 @@ void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color
 //********************************************************************
 
 void frontpage(void) {
+fprintf(stderr, ">>> Entering frontpage()\n");
   int mx, my;
 
   mx = (getmaxx() / 2);
+fprintf(stderr, "frontpage(): mx → %d\n", mx);
   my = (getmaxy() / 2);
+fprintf(stderr, "frontpage(): my → %d\n", my);
 
   //SET baqckground color
   setfillstyle(9, 1);
@@ -243,6 +252,7 @@ void frontpage(void) {
   outtextxy(mx + 1, my + 85, "@ 2022 by TYP 💻");
 
   getch(); //PAUSE for a while
+fprintf(stderr, "<<< Exiting frontpage()\n");
 }
 
 //********************************************************************
@@ -252,6 +262,7 @@ void frontpage(void) {
 //********************************************************************
 
 void screen(int x1, int y1, int x2, int y2) {
+fprintf(stderr, ">>> Entering screen(x1=%d,y1=%d,x2=%d,y2=%d)\n", x1, y1, x2, y2);
   setlinestyle(0, 0, 1);
   setfillstyle(SOLID_FILL, 8);
   bar(x1, y1, x2, y2);
@@ -270,6 +281,7 @@ void screen(int x1, int y1, int x2, int y2) {
   line(x1 + 2, y2 - 2, x2 - 2, y2 - 2);
   line(x2 - 2, y1 + 2, x2 - 2, y2 - 2);
 
+fprintf(stderr, "<<< Exiting screen(x1=%d,y1=%d,x2=%d,y2=%d)\n", x1, y1, x2, y2);
 }
 
 //***********************************************************************
@@ -279,6 +291,7 @@ void screen(int x1, int y1, int x2, int y2) {
 //***********************************************************************
 
 void init_mouse() {
+fprintf(stderr, ">>> Entering init_mouse()\n");
   union REGS iregs, oregs;
 
   iregs.x.ax = 0;
@@ -292,10 +305,12 @@ void init_mouse() {
   }
   iregs.x.ax = 1;
   int86(0x33, & iregs, & oregs);
+fprintf(stderr, "<<< Exiting init_mouse()\n");
 }
 //*************************************************************
 
 void mouse() {
+fprintf(stderr, ">>> Entering mouse()\n");
   int button, x1, y1;
   union REGS iregs, oregs;
 
@@ -303,6 +318,7 @@ void mouse() {
   int86(0x33, & iregs, & oregs);
 
   button = oregs.x.bx & 3;
+fprintf(stderr, "mouse(): button → %d\n", button);
   x1 = oregs.x.cx;
   y1 = oregs.x.dx;
 
@@ -313,21 +329,26 @@ void mouse() {
 
   if (button == 3)
     exit(0);
+	fprintf(stderr, "<<< Exiting mouse()\n");
 }
 
 //*************************************************************
 
 void hide_mouse() {
+fprintf(stderr, ">>> Entering hide_mouse()\n");
   union REGS ioRegs;
   ioRegs.x.ax = 2;
   int86(0x33, & ioRegs, & ioRegs);
+fprintf(stderr, "<<< Exiting hide_mouse()\n");
 }
 
 //*************************************************************
 void show_mouse() {
+fprintf(stderr, ">>> Entering show_mouse()\n");
   union REGS ioRegs;
   ioRegs.x.ax = 1;
   int86(0x33, & ioRegs, & ioRegs);
+fprintf(stderr, "<<< Exiting show_mouse()\n");
 }
 
 /*************************************************************/void remove_mouse() {
@@ -342,6 +363,7 @@ void show_mouse() {
 // *
 //************************************************************************
 void structure() {
+fprintf(stderr, ">>> Entering structure()\n");
   init_mouse();
   setbkcolor(0);
   cleardevice();
@@ -421,6 +443,7 @@ void structure() {
   button_3d(390, 350, 420, 370, UNCLICKED, "M-", 0);
   button_3d(430, 350, 460, 370, UNCLICKED, "MR", 0);
 
+fprintf(stderr, "<<< Exiting structure()\n");
 }
 //********************************************************
 // *
@@ -428,16 +451,22 @@ void structure() {
 // *
 //********************************************************
 void main() {
+fprintf(stderr, ">>> Entering main()\n");
   clrscr();
 
   double y = 0, z = 0, pnt, pnt1 = 0, x = 0, r = 0;
+fprintf(stderr, "main(): y → %d\n", y);
 
   int gdriver = DETECT, gmode, errorcode;
+fprintf(stderr, "main(): z → %d\n", z);
+fprintf(stderr, "main(): x → %d\n", x);
   int i;
   initgraph( & gdriver, & gmode, "C:\\TURBOC3\\BGI");
   midx = getmaxx() / 2;
   midy = getmaxy() / 2;
   structure();
+fprintf(stderr, "main(): midx → %d\n", midx);
+fprintf(stderr, "main(): midy → %d\n", midy);
   gotoxy(row, col);
   printf("\t\t\t\t\t");
   gotoxy(row, col);
@@ -448,6 +477,7 @@ void main() {
     pnt1 = 0; //no doubleing point entered Yet
     ch2 = '0';
     // for(int a=0;ch!=27;a++)//a indicates whether a no. has been entered or not
+	fprintf(stderr, "main(): ch2 → %d\n", ch2);
     while (ch2 != 27)
     //a=0 means that no no. has been entered yet
     {
@@ -455,6 +485,7 @@ void main() {
         //gotoxy(row,col);
         dummy = input();
  if (dummy != 'o') {
+		fprintf(stderr, "main(): dummy → %d\n", dummy);
           gotoxy(row, col);
           printf("The trail version does not support this feature");
           input();
@@ -465,6 +496,7 @@ void main() {
         y = 0;
         z = 0;
         ch = '0';
+		fprintf(stderr, "main(): ch → %d\n", ch);
         gotoxy(row, col);
         printf("\t\t\t\t\t\t");
         gotoxy(row, col);
@@ -615,6 +647,8 @@ void main() {
         // gotoxy(row,col);
         // printf("%g",y);
  // continue;
+	fprintf(stderr, ">>> Entering basecng(y=%f,pnt1=%f)\n", y, pnt1);
+	fprintf(stderr, "basecng(y=%f,pnt1=%f): bflagp → %d\n", y, pnt1, bflagp);
       }
       if (ch == 's' || ch == 'c' || ch == 't' || ch == 'i' || ch == 'j' || ch == 'k' || ch == 'n' || ch == 'l' || ch == 'p' || ch == 'h')
       //ie the user opted for a function
@@ -628,6 +662,8 @@ void main() {
             y = angle_conv(y);
             flag = flagp;
           }
+		fprintf(stderr, "main(): flagp → %d\n", flagp);
+		fprintf(stderr, "main(): flag → %d\n", flag);
           // gotoxy(row,col);
           // printf("%g",y);getch();
           switch (ch) {
@@ -719,6 +755,7 @@ void main() {
         // z=0;
         ch1 = input();
 
+		fprintf(stderr, "main(): ch1 → %d\n", ch1);
         if (ch1 == '>' || ch1 == '<' || ch1 == '?') {
           if (ch1 == '>') //M+
             *
@@ -928,6 +965,7 @@ void main() {
     gotoxy(row, col);
     printf("%g", y);
     z = 0;
+  fprintf(stderr, "<<< Exiting main()\n");
   }
 
   // getch();
@@ -944,6 +982,7 @@ void main() {
 //************************************************************
 
 char input() {
+fprintf(stderr, ">>> Entering input()\n");
   X = 0;
   Y = 0;
   char ch;
@@ -967,6 +1006,7 @@ char input() {
       button_3d(350, 205, 380, 225, UNCLICKED, "7", 0);
       show_mouse();
       ch = '7';
+	fprintf(stderr, "input(): ch → %d\n", ch);
       return ch;
     }
 
@@ -1223,6 +1263,7 @@ char input() {
       show_mouse();
       ch = '~';
       sflag = 1;
+	fprintf(stderr, "input(): sflag → %d\n", sflag);
       return ch;
     }
 
@@ -1444,7 +1485,9 @@ char input() {
       show_mouse();
       ch = 'd';
       flagp = flag;
+	fprintf(stderr, "input(): flagp → %d\n", flagp);
       flag = ch;
+	fprintf(stderr, "input(): flag → %d\n", flag);
       return ch;
     } 
 //**************************
@@ -1501,7 +1544,9 @@ char input() {
       show_mouse();
       ch = 'u';
       bflagp = bflag;
+	fprintf(stderr, "input(): bflagp → %d\n", bflagp);
       bflag = ch;
+	fprintf(stderr, "input(): bflag → %d\n", bflag);
       return ch;
     }
     if (X >= 218 && X <= 318 && Y >= 140 && Y <= 160) // Condition For oct
@@ -1569,6 +1614,7 @@ char input() {
 
   } while (kbhit() == 0);
   ch = getch();
+  fprintf(stderr, "<<< Exiting input()\n");
   return ch;
 }
 
@@ -1578,9 +1624,11 @@ char input() {
 // *
 //***********************************************
 double add(double x, double y, char ch) {
+fprintf(stderr, ">>> Entering add(x=%f,y=%f,ch=%c)\n", x, y, ch);
   switch (ch) {
   case '+':
     y = x + y;
+	fprintf(stderr, "add(x=%f,y=%f,ch=%c): y → %f\n", x, y, ch, y);
     break;
   case '-':
     y = x - y;
@@ -1591,13 +1639,16 @@ double add(double x, double y, char ch) {
   case '/':
     y = x / y;
   }
+fprintf(stderr, "<<< Exiting add(x=%f,y=%f,ch=%c)\n", x, y, ch);
   return y;
 }
 
 double angle_conv(double no) {
+fprintf(stderr, ">>> Entering angle_conv(no=%f)\n", no);
   if (flagp == 'd') {
     if (flag == 'r') {
       no = no * PI / 180;
+	fprintf(stderr, "angle_conv(no=%f): no → %f\n", no, no);
     }
     if (flag == 'g') {
       no = no * 1.1111111;
@@ -1617,10 +1668,12 @@ double angle_conv(double no) {
       no = no / 1.1111111;
     }
   }
+fprintf(stderr, "<<< Exiting angle_conv(no=%f)\n", no);
   return (no);
 }
 
 void basecng(double y, double pnt1) {
+fprintf(stderr, ">>> Entering basecng(y=%f,pnt1=%f)\n", y, pnt1);
   char str[17];
   if (pnt1 != 0) {
     gotoxy(row, col);
@@ -1629,6 +1682,7 @@ void basecng(double y, double pnt1) {
     bflag = 'u';
     bflagp = '0';
     main();
+	fprintf(stderr, "basecng(y=%f,pnt1=%f): bflag → %d\n", y, pnt1, bflag);
   }
   if (bflagp != 'u') {
     gotoxy(row, col);
@@ -1669,5 +1723,6 @@ void basecng(double y, double pnt1) {
     break;
   }
   bflag = 'u';
+fprintf(stderr, "<<< Exiting basecng(y=%f,pnt1=%f)\n", y, pnt1);
 }
  

@@ -4,13 +4,16 @@
 using namespace std;
 int main()
 {
+	std::cerr << ">>> Entering main()" << std::endl;
     int attemp = 1,ans,guess=0,_won=0,h=100,l=0;
     srand(time(0));
     ans = rand() % 100;
     cout<<"**** PLEASE READ INSTRUCTION ****"<<endl<<endl;
+	std::cerr << "main(): ans → " << ans << std::endl;
     cout << "NemoNet will generate"<<endl<<"any random number between 0-100"<<endl;
     cout<<"you have to guess the number"<<endl<<"you have 5 attempts / chanses to guess"<<endl<<endl;
     cout<<"After each wrong guess NemoNet will tell you"<<endl<<"Your guess is HIGH or LOW"<<endl;
+	std::cerr << "<<< Exiting main()" << std::endl;
     cout<<" BEST OF LUCK"<<endl;
 while(attemp <= 5)
 {
