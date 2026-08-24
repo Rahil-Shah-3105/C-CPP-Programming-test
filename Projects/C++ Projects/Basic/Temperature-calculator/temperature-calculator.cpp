@@ -19,6 +19,7 @@ using namespace std;
 
 void standard_output()
 {
+	std::cerr << ">>> Entering standard_output()" << std::endl;
 	int fahr;
 	int order;
 	int celsius;
@@ -40,6 +41,7 @@ void standard_output()
 	/*enables 'fahr' to start printing from the lowest value*/
 	fahr = lower_value;
 
+	std::cerr << "standard_output(): fahr → " << fahr << std::endl;
 	cout << '\n';
 	cout << "\t\t\t\t\t         ";
 	cout << "--- Temperature ---" << '\n';
@@ -59,6 +61,7 @@ void standard_output()
 		/*Formula (Fahrenheit to Celsius)*/
 		celsius = 5 * (fahr - 32) / 9;
 
+		std::cerr << "standard_output(): celsius → " << celsius << std::endl;
 		cout << '\n';
 		cout << "\t\t\t\t\t    ";
 
@@ -70,12 +73,14 @@ void standard_output()
 
 		/*increments fahrenheit by the 'order' value*/
 		fahr = fahr + order;
+	std::cerr << "<<< Exiting standard_output()" << std::endl;
 	}
 
 }
 
 void user_specific_output()
 {
+	std::cerr << ">>> Entering user_specific_output()" << std::endl;
 	string option;
 	float fahr_input;
 	float fahr_value;
@@ -119,6 +124,7 @@ void user_specific_output()
 		/*Formula (Celsius to Fahrenheit)*/
 		fahr_value = (9.0 / 5.0) * celsius_input + 32;
 
+		std::cerr << "user_specific_output(): fahr_value → " << fahr_value << std::endl;
 		cout << '\n';
 		cout << "\t\t\t\t\t            ";
 		cout << "--- Result ---" << '\n';
@@ -152,6 +158,7 @@ void user_specific_output()
 		/*Formula (Fahrenheit to Celsius)*/
 		celsius_value = 5 * (fahr_input - 32) / 9;
 
+		std::cerr << "user_specific_output(): celsius_value → " << celsius_value << std::endl;
 		cout << '\n';
 		cout << "\t\t\t\t\t            ";
 		cout << "--- Result ---" << '\n';
@@ -180,12 +187,14 @@ void user_specific_output()
 		Sleep(500);
 		cout << "\n[:]#Msg : Error --1" << '\n';
 		cout << "[:}Fault : Invalid option Input!" << '\n';
+	std::cerr << "<<< Exiting user_specific_output()" << std::endl;
 	}
 
 }
 
 int main()
 {
+	std::cerr << ">>> Entering main()" << std::endl;
 	string user_input;
 
 	cout << "\t\t\t\t\t    ";
@@ -241,6 +250,7 @@ int main()
 		Sleep(500);
 		cout << "\n[:]#Msg : Error --1" << '\n';
 		cout << "[:}Fault : Invalid option Input!" << '\n';
+	std::cerr << "<<< Exiting main()" << std::endl;
 	}
 
 	return 0;
