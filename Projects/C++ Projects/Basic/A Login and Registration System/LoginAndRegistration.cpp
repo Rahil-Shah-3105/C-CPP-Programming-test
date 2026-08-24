@@ -16,6 +16,7 @@ using namespace std;
 
 int main()
 {
+	std::cerr << ">>> Entering main()" << std::endl;
     login userLogin;
     string userChoice;
     cout << "\t\t\t_____________________________________________\n\n\n";
@@ -54,4 +55,5 @@ int main()
         cout << "\t\t\t Please select from the options above\n";
         main();
     }
+	std::cerr << "<<< Exiting main()" << std::endl;
 }
