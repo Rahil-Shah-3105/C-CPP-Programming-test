@@ -27,6 +27,7 @@ void gotoxy(int x,int y)
     coord.X=x;
     coord.Y=y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+	fprintf(stderr, "[WARN] <<< Exiting gotoxy(x=%d,y=%d)\n", x, y);
 }
 
 void main()

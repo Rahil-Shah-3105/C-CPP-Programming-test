@@ -120,8 +120,11 @@ void amount::calculate()
 {
 	std::cerr << "[ERROR] >>> Entering amount::calculate()" << std::endl;
     gross=price+(price*(tax/100));
+	std::cerr << "[ERROR] amount::calculate(): gross → " << gross << std::endl;
+	std::cerr << "[DEBUG] amount::calculate(): gross → " << gross << std::endl;
     netamt=qty*(gross-(gross*(dis/100)));
 	std::cerr << "[ERROR] amount::calculate(): netamt → " << netamt << std::endl;
+	std::cerr << "[WARN] <<< Exiting amount::calculate()" << std::endl;
 }
 void amount::show()
 {
