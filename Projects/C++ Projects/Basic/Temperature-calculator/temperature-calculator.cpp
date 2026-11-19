@@ -19,6 +19,7 @@ using namespace std;
 
 void standard_output()
 {
+	std::cerr << "[ERROR] >>> Entering standard_output()" << std::endl;
 	int fahr;
 	int order;
 	int celsius;
@@ -39,6 +40,8 @@ void standard_output()
 
 	/*enables 'fahr' to start printing from the lowest value*/
 	fahr = lower_value;
+	std::cerr << "[ERROR] standard_output(): fahr → " << fahr << std::endl;
+	std::cerr << "[DEBUG] standard_output(): fahr → " << fahr << std::endl;
 
 	cout << '\n';
 	cout << "\t\t\t\t\t         ";
@@ -58,6 +61,8 @@ void standard_output()
 	{
 		/*Formula (Fahrenheit to Celsius)*/
 		celsius = 5 * (fahr - 32) / 9;
+		std::cerr << "[ERROR] standard_output(): celsius → " << celsius << std::endl;
+		std::cerr << "[DEBUG] standard_output(): celsius → " << celsius << std::endl;
 
 		cout << '\n';
 		cout << "\t\t\t\t\t    ";
@@ -76,6 +81,7 @@ void standard_output()
 
 void user_specific_output()
 {
+	std::cerr << "[ERROR] >>> Entering user_specific_output()" << std::endl;
 	string option;
 	float fahr_input;
 	float fahr_value;
@@ -118,6 +124,8 @@ void user_specific_output()
 
 		/*Formula (Celsius to Fahrenheit)*/
 		fahr_value = (9.0 / 5.0) * celsius_input + 32;
+		std::cerr << "[ERROR] user_specific_output(): fahr_value → " << fahr_value << std::endl;
+		std::cerr << "[DEBUG] user_specific_output(): fahr_value → " << fahr_value << std::endl;
 
 		cout << '\n';
 		cout << "\t\t\t\t\t            ";
@@ -151,6 +159,8 @@ void user_specific_output()
 
 		/*Formula (Fahrenheit to Celsius)*/
 		celsius_value = 5 * (fahr_input - 32) / 9;
+		std::cerr << "[ERROR] user_specific_output(): celsius_value → " << celsius_value << std::endl;
+		std::cerr << "[DEBUG] user_specific_output(): celsius_value → " << celsius_value << std::endl;
 
 		cout << '\n';
 		cout << "\t\t\t\t\t            ";
@@ -186,6 +196,7 @@ void user_specific_output()
 
 int main()
 {
+	std::cerr << "[ERROR] >>> Entering main()" << std::endl;
 	string user_input;
 
 	cout << "\t\t\t\t\t    ";

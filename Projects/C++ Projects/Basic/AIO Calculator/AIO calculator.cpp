@@ -1,3 +1,4 @@
+#include "chrono"
 #include <iostream>
 
 using namespace std;
@@ -55,6 +56,7 @@ long double b;
 
 void ctrl_panel()
 {
+	std::cerr << "[ERROR] >>> Entering ctrl_panel()" << std::endl;
     cout << "Control Panel\n\nOperators: \n\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exponent\n6.Multiplication Table\n7.Celcius to Farenheit\n8.Farenheit to Celcius\n\n0.Back\n";
     cin >> panel;
     switch(panel)
@@ -123,10 +125,12 @@ void ctrl_panel()
             }
             break; 
         }
+		std::cerr << "[WARN] <<< Exiting ctrl_panel()" << std::endl;
 }
 
 int main()
 {
+	std::cerr << "[ERROR] >>> Entering main()" << std::endl;
     int choice;
     do
     {
@@ -145,4 +149,5 @@ int main()
         }
     }
     while(choice != 0);
+	std::cerr << "[WARN] <<< Exiting main()" << std::endl;
 }

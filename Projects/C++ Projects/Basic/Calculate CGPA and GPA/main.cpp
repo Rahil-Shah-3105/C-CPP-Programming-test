@@ -14,6 +14,7 @@ void method();
 
 int main()
 {
+	std::cerr << "[ERROR] >>> Entering main()" << std::endl;
     system("cls");
     int input;
     cout<<"--------------------------------------------------------------------------"<<endl;
@@ -48,10 +49,12 @@ int main()
             goto sub;
             break;
     }
+	std::cerr << "[WARN] <<< Exiting main()" << std::endl;
 }
 
 void calculateGPA()
 {
+	std::cerr << "[ERROR] >>> Entering calculateGPA()" << std::endl;
     int q;
     system("cls");
     cout<<"-------------- GPA Calculating -----------------"<<endl;
@@ -77,13 +80,16 @@ void calculateGPA()
     for(int j=0;j<q;j++)
     {
         tot=credit[j]*point[j];
+		std::cerr << "[DEBUG] calculateGPA(): tot → " << tot << std::endl;
         sum=sum+tot;
+		std::cerr << "[ERROR] calculateGPA(): sum → " << sum << std::endl;
     }
 
     float totCr=0;
     for(int k=0;k<q;k++)
     {
         totCr=totCr+credit[k];
+		std::cerr << "[ERROR] calculateGPA(): totCr → " << totCr << std::endl;
     }
 
     cout<<"\n\n\nTotal Points: "<<sum<<" . Total Credits: "<<totCr<<" .Total GPA: "<<sum/totCr<<" ."<<endl;
@@ -112,9 +118,11 @@ void calculateGPA()
               cout<<"\n\nYou have Entered Wrong Input!Please Choose Again!"<<endl;
               goto sub;
     }
+	std::cerr << "[WARN] <<< Exiting calculateGPA()" << std::endl;
 }
 void calculateCGPA()
 {
+	std::cerr << "[ERROR] >>> Entering calculateCGPA()" << std::endl;
     system("cls");
     int l;
     cout<<"-------------- CGPA Calculating -----------------\n\n"<<endl;
@@ -135,6 +143,7 @@ void calculateCGPA()
     for(int j=0;j<l;j++)
     {
         semtot=semtot+semrs[j];
+		std::cerr << "[ERROR] calculateCGPA(): semtot → " << semtot << std::endl;
     }
 
     cout<<"******** Your CGPA is "<<semtot/l<<" **********"<<endl;
@@ -168,6 +177,7 @@ void calculateCGPA()
 
 void method()
 {
+	std::cerr << "[ERROR] >>> Entering method()" << std::endl;
     system("cls");
     cout<<"--------------- Method of Calculating GPA & CGPA ---------------\n\n"<<endl;
     cout<<" GPA= Sum of (Credit*Point) / total of credits \n"<<endl;
@@ -193,4 +203,5 @@ void method()
               cout<<"\n\nYou have Entered Wrong Input!Please Choose Again!"<<endl;
               goto sub;
     }
+	std::cerr << "[WARN] <<< Exiting method()" << std::endl;
 };

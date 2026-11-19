@@ -2,6 +2,7 @@
 using namespace std;
 int main()
 {
+	std::cerr << "[ERROR] >>> Entering main()" << std::endl;
     char str[100];
    
    
@@ -12,6 +13,7 @@ int main()
     cout<<"\n______________________________________"<<endl<<endl;
    
     
+	std::cerr << "[WARN] <<< Exiting main()" << std::endl;
     for(int b=0;str[b]!='\0';b++){
         
         switch(str[b])

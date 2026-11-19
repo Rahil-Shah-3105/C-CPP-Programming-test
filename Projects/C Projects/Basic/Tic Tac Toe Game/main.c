@@ -23,6 +23,7 @@ COORD coord= {0,0}; // this is global variable
 //center of axis is set to the top left cornor of the screen
 void gotoxy(int x,int y)
 {
+	fprintf(stderr, "[ERROR] >>> Entering gotoxy(x=%d,y=%d)\n", x, y);
     coord.X=x;
     coord.Y=y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
@@ -30,14 +31,17 @@ void gotoxy(int x,int y)
 
 void main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
     system("cls");
     menu();
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
     getch();
 
 }
 
 void menu()
 {
+	fprintf(stderr, "[ERROR] >>> Entering menu()\n");
     int choice;
     system("cls");
     printf("\n--------MENU--------");
@@ -47,16 +51,21 @@ void menu()
     printf("\nEnter your choice:>");
     scanf("%d",&choice);
     turn = 1;
+	fprintf(stderr, "[DEBUG] menu(): turn → %d\n", turn);
     switch (choice)
     {
     case 1:
         player = 1;
+		fprintf(stderr, "[ERROR] menu(): player → %d\n", player);
+		fprintf(stderr, "[DEBUG] menu(): player → %d\n", player);
         comp = 0;
         player_first();
+		fprintf(stderr, "[DEBUG] menu(): comp → %d\n", comp);
         break;
     case 2:
         player = 0;
         comp = 1;
+		fprintf(stderr, "[ERROR] menu(): comp → %d\n", comp);
         start_game();
         break;
     case 3:
@@ -68,6 +77,7 @@ void menu()
 
 int make2()
 {
+	fprintf(stderr, "[ERROR] >>> Entering make2()\n");
     if(board[5] == 2)
         return 5;
     if(board[2] == 2)
@@ -83,6 +93,7 @@ int make2()
 
 int make4()
 {
+	fprintf(stderr, "[ERROR] >>> Entering make4()\n");
     if(board[1] == 2)
         return 1;
     if(board[3] == 2)
@@ -96,6 +107,7 @@ int make4()
 
 int posswin(int p)
 {
+fprintf(stderr, "[ERROR] >>> Entering posswin(p=%d)\n", p);
 // p==1 then X   p==0  then  O
     int i;
     int check_val,pos;
@@ -104,6 +116,8 @@ int posswin(int p)
         check_val = 18;
     else
         check_val = 50;
+		fprintf(stderr, "[ERROR] posswin(p=%d): check_val → %d\n", p, check_val);
+		fprintf(stderr, "[DEBUG] posswin(p=%d): check_val → %d\n", p, check_val);
 
     i = 1;
     while(i<=9)//row check
@@ -154,20 +168,24 @@ int posswin(int p)
         if(board[7] == 2)
             return 7;
     }
+	fprintf(stderr, "[WARN] <<< Exiting posswin(p=%d)\n", p);
     return 0;
 }
 
 void go(int n)
 {
+	fprintf(stderr, "[ERROR] >>> Entering go(n=%d)\n", n);
     if(turn % 2)
         board[n] = 3;
     else
         board[n] = 5;
     turn++;
+	fprintf(stderr, "[WARN] <<< Exiting go(n=%d)\n", n);
 }
 
 void player_first()
 {
+	fprintf(stderr, "[ERROR] >>> Entering player_first()\n");
     int pos;
 
     check_draw();
@@ -193,15 +211,18 @@ void player_first()
     go(pos);
     draw_board();
     start_game();
+	fprintf(stderr, "[WARN] <<< Exiting player_first()\n");
 }
 
 void start_game()
 {
+fprintf(stderr, "[ERROR] >>> Entering start_game()\n");
 // p==1 then X   p==0  then  O
     if(posswin(comp))
     {
         go(posswin(comp));
         flag = 1;
+		fprintf(stderr, "[DEBUG] start_game(): flag → %d\n", flag);
     }
     else if(posswin(player))
         go(posswin(player));
@@ -220,10 +241,12 @@ void start_game()
     }
     else
         player_first();
+		fprintf(stderr, "[WARN] <<< Exiting start_game()\n");
 }
 
 void check_draw()
 {
+	fprintf(stderr, "[ERROR] >>> Entering check_draw()\n");
     if(turn > 9)
     {
         gotoxy(30,20);
@@ -232,10 +255,12 @@ void check_draw()
         getch();
         exit(0);
     }
+	fprintf(stderr, "[WARN] <<< Exiting check_draw()\n");
 }
 
 void draw_board()
 {
+	fprintf(stderr, "[ERROR] >>> Entering draw_board()\n");
     int j;
 
     for(j=9; j<17; j++)
@@ -255,10 +280,12 @@ void draw_board()
         else if(board[j] == 5)
             put_X_O('O',j);
     }
+	fprintf(stderr, "[WARN] <<< Exiting draw_board()\n");
 }
 
 void put_X_O(char ch,int pos)
 {
+	fprintf(stderr, "[ERROR] >>> Entering put_X_O(ch=%c,pos=%c)\n", ch, pos);
     int m;
     int x = 31, y = 10;
 
@@ -286,4 +313,5 @@ void put_X_O(char ch,int pos)
     }
     gotoxy(x,y);
     printf("%c",ch);
+	fprintf(stderr, "[WARN] <<< Exiting put_X_O(ch=%c,pos=%c)\n", ch, pos);
 }

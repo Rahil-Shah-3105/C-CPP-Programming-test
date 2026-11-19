@@ -3,6 +3,7 @@
 // PROJECT FOR C/C++ PROGRAMMING TUTORIAL
 
 
+#include "chrono"
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -16,6 +17,7 @@ using namespace std;
 
 int main()
 {
+	std::cerr << "[ERROR] >>> Entering main()" << std::endl;
     login userLogin;
     string userChoice;
     cout << "\t\t\t_____________________________________________\n\n\n";
@@ -54,4 +56,5 @@ int main()
         cout << "\t\t\t Please select from the options above\n";
         main();
     }
+	std::cerr << "[WARN] <<< Exiting main()" << std::endl;
 }

@@ -47,8 +47,10 @@
  void mainmenu(); // main menu function
 
  int main(void) {
+fprintf(stderr, "[ERROR] >>> Entering main()\n");
  int delay = 20;
  mainmenu();
+fprintf(stderr, "[ERROR] main(): delay → %d\n", delay);
  do {//do ~ while statement to confirm whether to continue the game
  init(); // initial setting
  delay = 20;
@@ -67,6 +69,7 @@
  {
  if (score >= max_score) {//specify max score
  max_score = score;
+fprintf(stderr, "[DEBUG] main(): max_score → %d\n", max_score);
  }
  if (20 - score / 100 > 0) { // Decrease the delay
  delay = 20 - score / 100;
@@ -76,11 +79,16 @@
  }
  Sleep(delay); // speed control
  }
+fprintf(stderr, "[ERROR] >>> Entering init()\n");
+fprintf(stderr, "[DEBUG] init(): ship.health → %d\n", ship.health);
+fprintf(stderr, "[DEBUG] init(): ship.y → %d\n", ship.y);
+fprintf(stderr, "[WARN] <<< Exiting init()\n");
  }
  save();
  system("cls");
  } while (gameover() == 1);
 
+fprintf(stderr, "[WARN] <<< Exiting main()\n");
  return 0;
  }
 
@@ -102,6 +110,7 @@
  Sleep(100);
  if (_kbhit()) break; //check if key is pressed
  }
+fprintf(stderr, "[WARN] <<< Exiting mainmenu()\n");
  }
 
  void init() {
@@ -110,6 +119,7 @@
  srand(time(NULL)); // set random seed according to time
  background = (int**)malloc(sizeof(int*) * MAX_ROW);//background row (save objects in the background except player spaceship)
  for (int i = 0; i < MAX_ROW; i++) {
+fprintf(stderr, "[ERROR] init(): background → %d\n", background);
  background[i] = (int*)malloc(sizeof(int) * MAX_COL); // background column
  }
 
@@ -133,6 +143,7 @@
  clearbottom();
  }
  void ship_move() {
+fprintf(stderr, "[ERROR] >>> Entering ship_move()\n");
  if (GetAsyncKeyState(VK_LEFT) || GetAsyncKeyState(0x41)) { // left or a key
  if (ship.x > 0) {
  gotoxy(ship.x, ship.y);
@@ -166,9 +177,11 @@
  color(11);
  printf("A");
  color(7);
+fprintf(stderr, "[WARN] <<< Exiting ship_move()\n");
  }
 
  void obstacle(int dif) {
+fprintf(stderr, "[ERROR] >>> Entering obstacle(dif=%d)\n", dif);
  if (100 / dif > 0) { // Since it is not divisible by 0
  if (score % (100 / dif) == 0) { // more and more obstacles
  background[0][ship.x] = -1; // an obstacle that reduces health by -1
@@ -177,10 +190,13 @@
  else {
  background[0][ship.x] = -1;
  }
+fprintf(stderr, "[WARN] <<< Exiting obstacle(dif=%d)\n", dif);
  }
  void cure(int dif) {
+fprintf(stderr, "[ERROR] >>> Entering cure(dif=%d)\n", dif);
  static int prv_dif = 0; // keep the original shape even when the function is off
  int random = 0; // obstacle location
+fprintf(stderr, "[ERROR] cure(dif=%d): random → %d\n", dif, random);
  if (level != prv_dif) {//every time the level changes
  for (int i = 0; i < dif; i++) {
  random = rand() % MAX_COL;
@@ -193,6 +209,7 @@
  prv_dif = level;
  }
  void object_down() {
+fprintf(stderr, "[ERROR] >>> Entering object_down()\n");
 
  /* Problem occurs when moving from row to column
  If you read one line and go down, the object will be on the next line as well.
@@ -214,11 +231,14 @@
 
  ship.health += background[ship.y][ship.x];//Recover health or take damage.
  background[ship.y][ship.x] = 0;//Delete the object at that location from the array.
+fprintf(stderr, "[WARN] <<< Exiting reset_arr_1(arr=%p,size=%p,value=%d)\n", arr, size, value);
  }
 
+fprintf(stderr, "[WARN] <<< Exiting object_down()\n");
  }
 
  void print_game() {
+fprintf(stderr, "[ERROR] >>> Entering print_game()\n");
  gotoxy(0, 0); // move to position 0, 0
  for (int i = 0; i < MAX_ROW - bottom_size; i++) {
  for (int j = 0; j < MAX_COL; j++) {
@@ -234,6 +254,7 @@
  printf(" ");//delete previous position of missile
  }
 
+fprintf(stderr, "[WARN] <<< Exiting print_game()\n");
  }
  else if (background[i][j] > 0) {
  if (i - 1 >= 0 && background[i ​​- 1][j] == 0) {
@@ -255,6 +276,7 @@
  bottom();
  }
  void bottom() {
+fprintf(stderr, "[ERROR] >>> Entering bottom()\n");
  static int prev_health = 0; // place to store previous health
  static int prev_level = 0;
 
@@ -265,6 +287,8 @@
  if (prev_level != level) {//only when the level information is updated
  gotoxy(0, MAX_ROW - 4);
  printf("level %d", level);
+fprintf(stderr, "[ERROR] >>> Entering clearbottom()\n");
+fprintf(stderr, "[WARN] <<< Exiting clearbottom()\n");
  }
 
  if (bottom_explain <= 1) {
@@ -303,9 +327,11 @@
  color(7); // white
 
 
+fprintf(stderr, "[WARN] <<< Exiting bottom()\n");
  }
 
  int gameover() {
+fprintf(stderr, "[ERROR] >>> Entering gameover()\n");
  int i = 0;
  while (1) {
  color(12);
@@ -348,19 +374,27 @@
  }
  system("cls");
  }
+fprintf(stderr, "[WARN] <<< Exiting gameover()\n");
  return i;
  }
 
 
  void color(int code) {
+fprintf(stderr, "[ERROR] >>> Entering color(code=%d)\n", code);
  SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), code); // Function defined in windows.h, standard output handle, set color to number
  }
  void gotoxy(int x, int y) {
+fprintf(stderr, "[ERROR] >>> Entering gotoxy(x=%d,y=%d)\n", x, y);
  COORD Pos; // Coordinate structure
  Pos.X = x;
+fprintf(stderr, "[DEBUG] gotoxy(x=%d,y=%d): Pos.X → %d\n", x, y, Pos.X);
  Pos.Y = y;
+fprintf(stderr, "[DEBUG] gotoxy(x=%d,y=%d): Pos.Y → %d\n", x, y, Pos.Y);
  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos); // Function defined in windows.h, standard output handle, coordinates as a structure
  }
+fprintf(stderr, "[WARN] <<< Exiting cure(dif=%d)\n", dif);
+fprintf(stderr, "[WARN] <<< Exiting color(code=%d)\n", code);
+fprintf(stderr, "[WARN] <<< Exiting gotoxy(x=%d,y=%d)\n", x, y);
 
  void clearbottom() {
  gotoxy(0, MAX_ROW - 4);
@@ -373,18 +407,22 @@
  }
  }
  void reset_arr_2(int** arr, int row, int column, int value) {
+fprintf(stderr, "[ERROR] >>> Entering reset_arr_2(arr=%p,row=%p,column=%d,value=%d)\n", arr, row, column, value);
  for (int i = 0; i < row; i++) {
  for (int j = 0; j < column; j++) {
  arr[i][j] = value;
  }
  }
+fprintf(stderr, "[WARN] <<< Exiting reset_arr_2(arr=%p,row=%p,column=%d,value=%d)\n", arr, row, column, value);
  }
  void reset_arr_1(int* arr, int size, int value) {
+fprintf(stderr, "[ERROR] >>> Entering reset_arr_1(arr=%p,size=%p,value=%d)\n", arr, size, value);
  for (int i = 0; i < size; i++) {
  arr[i] = value;
  }
  }
  void load() {
+fprintf(stderr, "[ERROR] >>> Entering load()\n");
  FILE* fp;
  fopen_s(&fp, ".Game_Info.txt", "a+");//read and append mode
  if (fp != NULL) {
@@ -392,8 +430,10 @@
  fclose(fp);
  }
  else printf("\nFailed to read file\n");
+fprintf(stderr, "[WARN] <<< Exiting load()\n");
  }
  void save() {
+fprintf(stderr, "[ERROR] >>> Entering save()\n");
  FILE* fp;
  fopen_s(&fp, ".Game_Info.txt", "w");
  if (fp != NULL) {
@@ -401,6 +441,7 @@
  fclose(fp);
  }
  else printf("\nFailed to write file\n");
+fprintf(stderr, "[WARN] <<< Exiting save()\n");
  }
  void print_arr() {//for debug
  printf("--------------------------------------");

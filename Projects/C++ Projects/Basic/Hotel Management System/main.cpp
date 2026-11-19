@@ -47,6 +47,7 @@ void bill(int);                 //for the bill of a record
 
 void hotel::main_menu()
 {
+std::cerr << "[ERROR] >>> Entering hotel::main_menu()" << std::endl;
 
 int choice;
 while(choice!=5)
@@ -95,6 +96,7 @@ getch();
 
 }
 
+std::cerr << "[WARN] <<< Exiting hotel::main_menu()" << std::endl;
 }
 
 
@@ -106,6 +108,7 @@ getch();
 
 void hotel::add()
 {
+std::cerr << "[ERROR] >>> Entering hotel::add()" << std::endl;
 
   system("cls");
 int r,flag;
@@ -122,6 +125,8 @@ cout <<"\n Enter The Room no. you want to stay in :- "<<'\n';
 cin>>r;
 
 flag=check(r);
+std::cerr << "[ERROR] hotel::add(): flag → " << flag << std::endl;
+std::cerr << "[DEBUG] hotel::add(): flag → " << flag << std::endl;
 
 if(flag)
 cout<<"\n Sorry..!!!Room is already booked";
@@ -130,6 +135,7 @@ else
 {
 
 room_no=r;
+std::cerr << "[DEBUG] hotel::add(): room_no → " << room_no << std::endl;
 cout<<" Name: ";
 cin>>name;
 cout<<" Address: ";
@@ -147,6 +153,7 @@ cout<<"\n Press any key to continue.....!!";
 getch();
 fout.close();
 
+std::cerr << "[WARN] <<< Exiting hotel::add()" << std::endl;
 }
 
 
@@ -161,6 +168,7 @@ fout.close();
 
 void hotel::display()
 {
+std::cerr << "[ERROR] >>> Entering hotel::display()" << std::endl;
 
   system("cls");
 
@@ -185,6 +193,7 @@ cout<<"\n Name: "<<name;
 cout<<"\n Address: "<<address;
 cout<<"\n Phone no: "<<phone;
 flag=1;
+std::cerr << "[DEBUG] hotel::display(): flag → " << flag << std::endl;
 break;
 
 }
@@ -197,6 +206,7 @@ cout<<"\n\n Press any key to continue....!!";
 
 getch();
 fin.close();
+std::cerr << "[WARN] <<< Exiting hotel::display()" << std::endl;
 }
 
 
@@ -207,6 +217,7 @@ fin.close();
 
 void hotel::rooms()
 {
+std::cerr << "[ERROR] >>> Entering hotel::rooms()" << std::endl;
 
   system("cls");
 
@@ -228,6 +239,7 @@ cout<<"\n\n\n\t\t\tPress any key to continue.....!!";
 getch();
 fin.close();
 
+std::cerr << "[WARN] <<< Exiting hotel::rooms()" << std::endl;
 }
 
 
@@ -236,6 +248,7 @@ fin.close();
 
 void hotel::edit()
 {
+std::cerr << "[ERROR] >>> Entering hotel::edit()" << std::endl;
 
   system("cls");
 
@@ -271,11 +284,13 @@ default: cout<<"\n Wrong Choice.....!!";
 cout<<"\n Press any key to continue....!!!";
 
 getch();
+std::cerr << "[WARN] <<< Exiting hotel::edit()" << std::endl;
 }
 
 
 int hotel::check(int r)
 {
+std::cerr << "[ERROR] >>> Entering hotel::check(r=" << r << ")" << std::endl;
 
 int flag=0;
 
@@ -289,6 +304,7 @@ if(room_no==r)
 {
 
 flag=1;
+std::cerr << "[ERROR] hotel::check(r=" << r << "): flag → " << flag << std::endl;
 break;
 
 }
@@ -296,6 +312,7 @@ break;
 }
 
 fin.close();
+std::cerr << "[WARN] <<< Exiting hotel::check(r=" << r << ")" << std::endl;
 return(flag);
 
 }
@@ -306,6 +323,7 @@ return(flag);
 
 void hotel::modify(int r)
 {
+std::cerr << "[ERROR] >>> Entering hotel::modify(r=" << r << ")" << std::endl;
 
 long pos,flag=0;
 
@@ -315,6 +333,8 @@ while(!file.eof())
 {
 
 pos=file.tellg();
+std::cerr << "[ERROR] hotel::modify(r=" << r << "): pos → " << pos << std::endl;
+std::cerr << "[DEBUG] hotel::modify(r=" << r << "): pos → " << pos << std::endl;
 file.read((char*)this,sizeof(hotel));
 
 if(room_no==r)
@@ -332,6 +352,7 @@ file.seekg(pos);
 file.write((char*)this,sizeof(hotel));
 cout<<"\n Record is modified....!!";
 flag=1;
+std::cerr << "[DEBUG] hotel::modify(r=" << r << "): flag → " << flag << std::endl;
 break;
 
 }
@@ -342,6 +363,7 @@ if(flag==0)
 cout<<"\n Sorry Room No. not found or vacant...!!";
 file.close();
 
+std::cerr << "[WARN] <<< Exiting hotel::modify(r=" << r << ")" << std::endl;
 }
 
 
@@ -353,6 +375,7 @@ file.close();
 
 void hotel::delete_rec(int r)
 {
+std::cerr << "[ERROR] >>> Entering hotel::delete_rec(r=" << r << ")" << std::endl;
 
 int flag=0;
 char ch;
@@ -376,6 +399,7 @@ cin>>ch;
 if(ch=='n')
 fout.write((char*)this,sizeof(hotel));
 flag=1;
+std::cerr << "[ERROR] hotel::delete_rec(r=" << r << "): flag → " << flag << std::endl;
 
 }
 
@@ -398,6 +422,7 @@ rename("temp.dat","Record.dat");
 
 }
 
+std::cerr << "[WARN] <<< Exiting hotel::delete_rec(r=" << r << ")" << std::endl;
 }
 
 
@@ -408,6 +433,7 @@ rename("temp.dat","Record.dat");
 
 void hotel::bill(int r)
 {
+std::cerr << "[ERROR] >>> Entering hotel::bill(r=" << r << ")" << std::endl;
 
 hotel h1;
 ifstream f1;
@@ -450,6 +476,7 @@ if(!f1)
   f1.close();
   getch();
 
+std::cerr << "[WARN] <<< Exiting hotel::bill(r=" << r << ")" << std::endl;
 }
 
 //END OF BILLING FUNCTION
@@ -459,6 +486,7 @@ if(!f1)
 
 int main()
 {
+std::cerr << "[ERROR] >>> Entering main()" << std::endl;
 
 hotel h;
 
@@ -475,6 +503,7 @@ cout<<"\n\n\n\n\n\n\n\t\t\t\t\tPress any key to continue....!!";
 getch();
 
 h.main_menu();
+std::cerr << "[WARN] <<< Exiting main()" << std::endl;
 return 0;
 }
 

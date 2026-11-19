@@ -24,6 +24,7 @@ void print();
 void mainscreen();
 void main()
 {
+	fprintf(stderr, "[ERROR] >>> Entering main()\n");
 	int a,i,n,y;
 	char c,d;
 	char date1[15],date2[15],string1[20];
@@ -44,6 +45,7 @@ void main()
        //	cprintf("5.Exit from the program");gotoxy(25,30);
 	fflush(stdin);
 	d=getch();
+	fprintf(stderr, "[ERROR] main(): d → %c\n", d);
 	switch(d)
 	{
 		case '1':
@@ -93,9 +95,13 @@ void main()
 	clrscr();
 	mainscreen();
 	goto label1;
+	fprintf(stderr, "[WARN] <<< Exiting main()\n");
+	fprintf(stderr, "[ERROR] >>> Entering print()\n");
+	fprintf(stderr, "[WARN] <<< Exiting print()\n");
 }
 void mainscreen()
 {
+	fprintf(stderr, "[ERROR] >>> Entering mainscreen()\n");
 	int i,j;
 	clrscr();
 	for(i=2,j=2;i<rw;j++)
@@ -128,9 +134,11 @@ void mainscreen()
 	cprintf("Digital");
 	gotoxy(35,7); textcolor(15);
 	cprintf("-----------");
+	fprintf(stderr, "[WARN] <<< Exiting mainscreen()\n");
 }
 void add()
 {
+	fprintf(stderr, "[ERROR] >>> Entering add()\n");
 	char ch;
 	label1:
 	clrscr();
@@ -189,6 +197,7 @@ void add()
 	p.block=toupper(p.block);
 	if(p.block!='S'&&p.block!='P'&&p.block!='D'&&p.block!='F')
 	p.block=' ';
+	fprintf(stderr, "[DEBUG] add(): p.block → %d\n", p.block);
 	fflush(stdin);
 
 	gotoxy(26,28);
@@ -212,15 +221,18 @@ void add()
 	fclose(fp);
 	printf("\n\n\n\t\tEnter 'y' for next record(y/n):");
 	ch=getch();
+	fprintf(stderr, "[ERROR] add(): ch → %c\n", ch);
 	if(ch=='y')
 	{
 		goto label1;
 	}
 
        //	getch();
+	fprintf(stderr, "[WARN] <<< Exiting add()\n");
 }
 void explor()
 {
+	fprintf(stderr, "[ERROR] >>> Entering explor()\n");
 	char d,c;
 	FILE *f;
 	int given_atmic_no,a,i,tsz,n;
@@ -242,6 +254,7 @@ void explor()
 	gotoxy(25,32);
 	fflush(stdin);
 	d=getch();
+	fprintf(stderr, "[ERROR] explor(): d → %c\n", d);
 	switch(d)
        {
 		case '1':
@@ -265,6 +278,8 @@ void explor()
 			exit(1);
 			}
 			flag=1;
+			fprintf(stderr, "[ERROR] explor(): flag → %d\n", flag);
+			fprintf(stderr, "[DEBUG] explor(): flag → %d\n", flag);
 			while(fread(&p,sizeof(p),1,fp))
 			{
 				 if(strcmp(p.name,string)==0)
@@ -272,6 +287,8 @@ void explor()
 					print();
 
 					flag=0;
+					fprintf(stderr, "[ERROR] explor(): flag → %d\n", flag);
+					fprintf(stderr, "[DEBUG] explor(): flag → %d\n", flag);
 
 					break;
 				 }
@@ -442,6 +459,7 @@ void explor()
 			fflush(stdin);
 			scanf("%c",&c);
 			c=toupper(c);
+			fprintf(stderr, "[ERROR] explor(): c → %c\n", c);
 			if((f=fopen("temp","wb+"))==NULL)
 			{
 			clrscr();
@@ -480,7 +498,10 @@ void explor()
 					      }
 					 fseek(f,0,SEEK_END);
 					 tsz=ftell(f);
+					fprintf(stderr, "[ERROR] explor(): tsz → %d\n", tsz);
 					 n=(int)(tsz/sizeof(p));
+					fprintf(stderr, "[ERROR] explor(): n → %d\n", n);
+					 fprintf(stderr, "[DEBUG] explor(): tsz → %d\n", tsz);
 					 for(i=0;i<(n-1);i++)
 					 {
 						for(a=i+1;a<n;a++)
@@ -533,6 +554,7 @@ void explor()
 				goto label6;
 		}
 	}
+	fprintf(stderr, "[WARN] <<< Exiting explor()\n");
 	goto startofexplore;
 
 }

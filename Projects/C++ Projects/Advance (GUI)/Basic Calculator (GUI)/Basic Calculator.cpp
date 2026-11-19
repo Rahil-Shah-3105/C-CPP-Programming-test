@@ -19,6 +19,7 @@ License   : Protected (Please give the credit of programming to author.)
 
 
 
+#include "iostream"
 #include <iostream.h>
 #include <conio.h>
 #include <graphics.h>
@@ -77,67 +78,89 @@ class Mouse
 
  int Mouse::InstallMouse()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::InstallMouse()" << std::endl;
 
   in.x.ax = 0;
   int86(51,&in,&out);
+std::cerr << "[WARN] <<< Exiting Mouse::InstallMouse()" << std::endl;
   return out.x.ax;
 
  }
  int Mouse::ShowMouse()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::ShowMouse()" << std::endl;
 
   in.x.ax = 1;
   int86(51,&in,&out);
+std::cerr << "[WARN] <<< Exiting Mouse::ShowMouse()" << std::endl;
   return 1;
 
  }
  int Mouse::HideMouse()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::HideMouse()" << std::endl;
 
   in.x.ax = 2;
   int86(51,&in,&out);
+std::cerr << "[WARN] <<< Exiting Mouse::HideMouse()" << std::endl;
   return 1;
 
  }
  void Mouse::GetMouseStatus()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::GetMouseStatus()" << std::endl;
 
   in.x.ax = 3;
   int86(51,&in,&out);
   MouseXpos = out.x.cx;
+std::cerr << "[DEBUG] Mouse::GetMouseStatus(): MouseXpos → " << MouseXpos << std::endl;
   MouseYpos = out.x.dx;
+std::cerr << "[DEBUG] Mouse::GetMouseStatus(): MouseYpos → " << MouseYpos << std::endl;
   MouseBtn = out.x.bx;
+std::cerr << "[DEBUG] Mouse::GetMouseStatus(): MouseBtn → " << MouseBtn << std::endl;
 
+std::cerr << "[WARN] <<< Exiting Mouse::GetMouseStatus()" << std::endl;
  }
  BUTTON Mouse::GetButton()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::GetButton()" << std::endl;
+  std::cerr << "[WARN] <<< Exiting Mouse::GetButton()" << std::endl;
   return MouseBtn;
  }
 
  int Mouse::GetPosX()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::GetPosX()" << std::endl;
+  std::cerr << "[WARN] <<< Exiting Mouse::GetPosX()" << std::endl;
   return MouseXpos;
  }
 
  int Mouse::GetPosY()
  {
+std::cerr << "[ERROR] >>> Entering Mouse::GetPosY()" << std::endl;
+  std::cerr << "[WARN] <<< Exiting Mouse::GetPosY()" << std::endl;
   return MouseYpos;
  }
 
  void Mouse::SetMousePosi(int &xpos, int &ypos)
  {
+std::cerr << "[ERROR] >>> Entering Mouse::SetMousePosi(xpos=" << xpos << ",ypos=" << ypos << ")" << std::endl;
   in.x.ax = 4;
   in.x.cx = xpos;
   in.x.dx = ypos;
   int86(51,&in,&out);
+std::cerr << "[WARN] <<< Exiting Mouse::SetMousePosi(xpos=" << xpos << ",ypos=" << ypos << ")" << std::endl;
  }
  int Mouse::MouseInside(int x1, int y1, int x2, int y2)
  {
+std::cerr << "[ERROR] >>> Entering Mouse::MouseInside(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << ")" << std::endl;
   int x_pos, y_pos;
   in.x.ax = 3;
   int86(51,&in,&out);
   x_pos = out.x.cx;
+std::cerr << "[DEBUG] Mouse::MouseInside(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << "): x_pos → " << x_pos << std::endl;
   y_pos = out.x.dx;
+std::cerr << "[DEBUG] Mouse::MouseInside(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << "): y_pos → " << y_pos << std::endl;
 
   if(x_pos >= x1 && y_pos >= y1 && x_pos <= x2 && y_pos <= y2)
    return 1;
@@ -147,6 +170,7 @@ class Mouse
  }
  void Mouse::RestrictMousePtr(int x1, int y1, int x2, int y2)
  {
+std::cerr << "[ERROR] >>> Entering Mouse::RestrictMousePtr(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << ")" << std::endl;
 
   in.x.ax = 7;
   in.x.cx = x1;
@@ -158,6 +182,7 @@ class Mouse
   in.x.dx = y2;
   int86(51,&in,&out);
 
+std::cerr << "[WARN] <<< Exiting Mouse::RestrictMousePtr(x1=" << x1 << ",y1=" << y1 << ",x2=" << x2 << ",y2=" << y2 << ")" << std::endl;
  }
 
 
@@ -202,6 +227,7 @@ class TextBox
 
     void TextBox::Draw()
    {
+std::cerr << "[ERROR] >>> Entering TextBox::Draw()" << std::endl;
   setfillstyle(SOLID_FILL,WHITE);
   bar(Left,Top,Left+Width,Top+Height);
 
@@ -220,27 +246,34 @@ class TextBox
    outtextxy(Left+(Width/2),Top+1+((Height/2)-(textheight(Caption)/2)),Caption);
 
 
+std::cerr << "[WARN] <<< Exiting TextBox::Draw()" << std::endl;
    }
 
 
  void TextBox::SetText(char text[])
  {
+std::cerr << "[ERROR] >>> Entering TextBox::SetText(text=" << text << ")" << std::endl;
   if (Left + textwidth(Caption) <= Left + Width - textwidth(" "))
   {
    strcat(Caption,text);
    Draw();
   }
+std::cerr << "[WARN] <<< Exiting TextBox::SetText(text=" << text << ")" << std::endl;
  }
 
  char *TextBox::GetText()
  {
+std::cerr << "[ERROR] >>> Entering TextBox::GetText()" << std::endl;
+  std::cerr << "[WARN] <<< Exiting TextBox::GetText()" << std::endl;
   return Caption;
  }
 
  void TextBox::Clear()
  {
+std::cerr << "[ERROR] >>> Entering TextBox::Clear()" << std::endl;
   strcpy(Caption,"");
   Draw();
+std::cerr << "[WARN] <<< Exiting TextBox::Clear()" << std::endl;
  }
 
 
@@ -291,6 +324,7 @@ class Button
 
    void Button::Draw()
    {
+std::cerr << "[ERROR] >>> Entering Button::Draw()" << std::endl;
   setfillstyle(SOLID_FILL,LIGHTGRAY);
   bar(Left,Top,Left+Width,Top+Height);
 
@@ -307,10 +341,12 @@ class Button
   outtextxy(Left + (Width/2) - textwidth(Caption)/2 + 1,
   Top + (Height/2) - textheight(Caption)/2 + 1, Caption);
 
+std::cerr << "[WARN] <<< Exiting Button::Draw()" << std::endl;
    }
 
    void Button::MouseDown()
    {
+std::cerr << "[ERROR] >>> Entering Button::MouseDown()" << std::endl;
 
 
 
@@ -330,10 +366,12 @@ class Button
 
 
 
+std::cerr << "[WARN] <<< Exiting Button::MouseDown()" << std::endl;
    }
 
    void Button::MouseUp()
    {
+std::cerr << "[ERROR] >>> Entering Button::MouseUp()" << std::endl;
 
 
 
@@ -349,15 +387,19 @@ class Button
 
      mouse.ShowMouse();
 
+std::cerr << "[WARN] <<< Exiting Button::MouseUp()" << std::endl;
    }
 
    void Button::EnableClickHandler()
    {
+std::cerr << "[ERROR] >>> Entering Button::EnableClickHandler()" << std::endl;
 
   if(State)
   {
    ButtonId = 0;
+std::cerr << "[DEBUG] Button::EnableClickHandler(): ButtonId → " << ButtonId << std::endl;
    State = false;
+std::cerr << "[DEBUG] Button::EnableClickHandler(): State → " << State << std::endl;
    return;
   }
 
@@ -368,19 +410,24 @@ class Button
    {
     MouseDown();
     btnStatus = BUTTON_STATUS_DOWN;
+	std::cerr << "[ERROR] Button::EnableClickHandler(): btnStatus → " << btnStatus << std::endl;
+	std::cerr << "[DEBUG] Button::EnableClickHandler(): btnStatus → " << btnStatus << std::endl;
    }
 
    else if(btnStatus == BUTTON_STATUS_DOWN &&  mouse.GetButton() == MOUSE_NORMAL)
    {
     MouseUp();
     ButtonId = ID;
+	std::cerr << "[ERROR] Button::EnableClickHandler(): ButtonId → " << ButtonId << std::endl;
     btnStatus = BUTTON_STATUS_NORMAL;
     State = true;
+	std::cerr << "[ERROR] Button::EnableClickHandler(): State → " << State << std::endl;
 
    }
 
   }
 
+std::cerr << "[WARN] <<< Exiting Button::EnableClickHandler()" << std::endl;
  }
 
 /*------------------------------------------------------
@@ -418,6 +465,7 @@ class Window
  }
  void Window::JCLogo()
  {
+	std::cerr << "[ERROR] >>> Entering Window::JCLogo()" << std::endl;
     /*********** Logo ************/
 
   setcolor(3);
@@ -429,9 +477,11 @@ class Window
   settextstyle(SMALL_FONT,0,0);
   outtextxy(Left+6,Top+4,"JC");
   settextstyle(0,0,0);
+std::cerr << "[WARN] <<< Exiting Window::JCLogo()" << std::endl;
  }
  void Window::Draw()
  {
+std::cerr << "[ERROR] >>> Entering Window::Draw()" << std::endl;
   setfillstyle(SOLID_FILL,LIGHTGRAY);
   bar(Left,Top,Left+Width,Top+Height);
 
@@ -451,17 +501,21 @@ class Window
   settextjustify(LEFT_TEXT,TOP_TEXT);
   outtextxy(Left+(BORDERWIDTH*2)+TITLEBARHEIGHT+2,Top+(BORDERWIDTH*2)+(TITLEBARHEIGHT/2)-(textheight(Caption)/2),Caption);
   CloseBtn = new Button(Left+Width-TITLEBARHEIGHT-1, Top+2,TITLEBARHEIGHT-2, TITLEBARHEIGHT-2, "X", 9809);
+std::cerr << "[ERROR] Window::Draw(): CloseBtn → " << CloseBtn << std::endl;
   CloseBtn->Draw();
 
   JCLogo();
 
+std::cerr << "[WARN] <<< Exiting Window::Draw()" << std::endl;
  }
  void Window::EnableClickHandler()
  {
+std::cerr << "[ERROR] >>> Entering Window::EnableClickHandler()" << std::endl;
   CloseBtn->EnableClickHandler();
   if (ButtonId == 9809)
   exit(0);
 
+std::cerr << "[WARN] <<< Exiting Window::EnableClickHandler()" << std::endl;
  }
 
 
@@ -476,13 +530,20 @@ class Window
 
 void main()
 {
+std::cerr << "[ERROR] >>> Entering main()" << std::endl;
  int gd=DETECT,gm,ch,errorcode;
  double opr1 = 0,opr2 = 0,result = 0,d=0;
+std::cerr << "[ERROR] main(): opr1 → " << opr1 << std::endl;
+std::cerr << "[ERROR] main(): d → " << d << std::endl;
+std::cerr << "[ERROR] main(): opr2 → " << opr2 << std::endl;
+std::cerr << "[ERROR] main(): result → " << result << std::endl;
  int Operation=0;
  double temp;
  char *chr,str[30];
  int len;
  int x = 160,y = 130;
+std::cerr << "[ERROR] main(): x → " << x << std::endl;
+std::cerr << "[ERROR] main(): h → " << h << std::endl;
  int w = 50, h = 40;
  char deci[]={"."};
 
@@ -495,6 +556,8 @@ void main()
 
   // read result of initialization
   errorcode = graphresult();
+std::cerr << "[ERROR] main(): errorcode → " << errorcode << std::endl;
+std::cerr << "[DEBUG] main(): errorcode → " << errorcode << std::endl;
 
   if (errorcode != grOk)// an error occurred
   {
@@ -554,8 +617,10 @@ void main()
       d = 0;
       opr1=0;
       opr2=0;
+	std::cerr << "[DEBUG] main(): opr2 → " << opr2 << std::endl;
       result = 0;
       Operation = 0;
+	std::cerr << "[ERROR] main(): Operation → " << Operation << std::endl;
 
     break;
     case 2: //Divide
@@ -575,8 +640,10 @@ void main()
     case 4: //Backspace
       strcpy(chr,pTextBox->GetText());
       len=strlen(chr);
+	std::cerr << "[DEBUG] main(): len → " << len << std::endl;
       if(chr[len-2] == deci[0])
       {
+		std::cerr << "[ERROR] main(): len → " << len << std::endl;
          chr[len-1]=0;
          chr[len-2]=0;
       }
@@ -691,10 +758,12 @@ void main()
 
        while(kbhit()){
   ch = getch();
+std::cerr << "[ERROR] main(): ch → " << ch << std::endl;
   if (ch == 27)  //ESC key pressed
   exit(0);
     } }
 
+std::cerr << "[WARN] <<< Exiting main()" << std::endl;
 }
 
 

@@ -61,6 +61,7 @@ char str2[] = {
 };
 
 void typeit(int x, int y, int spacing, char string[]) {
+fprintf(stderr, "[ERROR] >>> Entering typeit(x=%d,y=%d,spacing=%d,string=%s)\n", x, y, spacing, string);
   char temp[2];
   for (int i = 0; i < strlen(string); i++) {
     delay(100);
@@ -69,8 +70,10 @@ void typeit(int x, int y, int spacing, char string[]) {
     outtextxy(x + (i + 1) * spacing, y, temp);
   } //endfor
 
+fprintf(stderr, "[WARN] <<< Exiting typeit(x=%d,y=%d,spacing=%d,string=%s)\n", x, y, spacing, string);
 }
 void front() {
+fprintf(stderr, "[ERROR] >>> Entering front()\n");
   int x, y, h;
   for (x = 0; x <= 100; x++) {
     settextjustify(CENTER_TEXT, CENTER_TEXT);
@@ -124,6 +127,7 @@ void front() {
   getch();
   //closegraph();
 
+fprintf(stderr, "[WARN] <<< Exiting front()\n");
 }
 
 char input();
@@ -138,6 +142,7 @@ void basecng(double, double);
 //***********************************************************
 
 void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color) {
+fprintf(stderr, "[ERROR] >>> Entering button_3d(x1=%d,y1=%d,x2=%d,y2=%d,check=%d,text=%s,color=%s)\n", x1, y1, x2, y2, check, text, color);
   int up, low;
   setfillstyle(1, 7);
   bar(x1, y1, x2, y2);
@@ -145,6 +150,7 @@ void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color
     up = 15, low = 8;
   else
     up = 8, low = 15; //Clicked
+	fprintf(stderr, "[ERROR] button_3d(x1=%d,y1=%d,x2=%d,y2=%d,check=%d,text=%s,color=%d): up → %d\n", x1, y1, x2, y2, check, text, color, up);
   setcolor(low);
   line(x2, y1, x2, y2);
   line(x2 - 1, y1, x2 - 1, y2);
@@ -161,6 +167,7 @@ void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color
   settextjustify(CENTER_TEXT, CENTER_TEXT);
   outtextxy(x1 + (x2 - x1) / 2, (y1 + (y2 - y1) / 2) - 2, text);
 
+fprintf(stderr, "[WARN] <<< Exiting button_3d(x1=%d,y1=%d,x2=%d,y2=%d,check=%d,text=%s,color=%s)\n", x1, y1, x2, y2, check, text, color);
 }
 //********************************************************************
 // *
@@ -169,10 +176,13 @@ void button_3d(int x1, int y1, int x2, int y2, int check, char * text, int color
 //********************************************************************
 
 void frontpage(void) {
+fprintf(stderr, "[ERROR] >>> Entering frontpage()\n");
   int mx, my;
 
   mx = (getmaxx() / 2);
+fprintf(stderr, "[ERROR] frontpage(): mx → %d\n", mx);
   my = (getmaxy() / 2);
+fprintf(stderr, "[ERROR] frontpage(): my → %d\n", my);
 
   //SET baqckground color
   setfillstyle(9, 1);
@@ -243,6 +253,7 @@ void frontpage(void) {
   outtextxy(mx + 1, my + 85, "@ 2022 by TYP 💻");
 
   getch(); //PAUSE for a while
+fprintf(stderr, "[WARN] <<< Exiting frontpage()\n");
 }
 
 //********************************************************************
@@ -252,6 +263,7 @@ void frontpage(void) {
 //********************************************************************
 
 void screen(int x1, int y1, int x2, int y2) {
+fprintf(stderr, "[ERROR] >>> Entering screen(x1=%d,y1=%d,x2=%d,y2=%d)\n", x1, y1, x2, y2);
   setlinestyle(0, 0, 1);
   setfillstyle(SOLID_FILL, 8);
   bar(x1, y1, x2, y2);
@@ -270,6 +282,7 @@ void screen(int x1, int y1, int x2, int y2) {
   line(x1 + 2, y2 - 2, x2 - 2, y2 - 2);
   line(x2 - 2, y1 + 2, x2 - 2, y2 - 2);
 
+fprintf(stderr, "[WARN] <<< Exiting screen(x1=%d,y1=%d,x2=%d,y2=%d)\n", x1, y1, x2, y2);
 }
 
 //***********************************************************************
@@ -279,6 +292,7 @@ void screen(int x1, int y1, int x2, int y2) {
 //***********************************************************************
 
 void init_mouse() {
+fprintf(stderr, "[ERROR] >>> Entering init_mouse()\n");
   union REGS iregs, oregs;
 
   iregs.x.ax = 0;
@@ -292,10 +306,12 @@ void init_mouse() {
   }
   iregs.x.ax = 1;
   int86(0x33, & iregs, & oregs);
+fprintf(stderr, "[WARN] <<< Exiting init_mouse()\n");
 }
 //*************************************************************
 
 void mouse() {
+fprintf(stderr, "[ERROR] >>> Entering mouse()\n");
   int button, x1, y1;
   union REGS iregs, oregs;
 
@@ -303,6 +319,7 @@ void mouse() {
   int86(0x33, & iregs, & oregs);
 
   button = oregs.x.bx & 3;
+fprintf(stderr, "[DEBUG] mouse(): button → %d\n", button);
   x1 = oregs.x.cx;
   y1 = oregs.x.dx;
 
@@ -313,21 +330,26 @@ void mouse() {
 
   if (button == 3)
     exit(0);
+	fprintf(stderr, "[WARN] <<< Exiting mouse()\n");
 }
 
 //*************************************************************
 
 void hide_mouse() {
+fprintf(stderr, "[ERROR] >>> Entering hide_mouse()\n");
   union REGS ioRegs;
   ioRegs.x.ax = 2;
   int86(0x33, & ioRegs, & ioRegs);
+fprintf(stderr, "[WARN] <<< Exiting hide_mouse()\n");
 }
 
 //*************************************************************
 void show_mouse() {
+fprintf(stderr, "[ERROR] >>> Entering show_mouse()\n");
   union REGS ioRegs;
   ioRegs.x.ax = 1;
   int86(0x33, & ioRegs, & ioRegs);
+fprintf(stderr, "[WARN] <<< Exiting show_mouse()\n");
 }
 
 /*************************************************************/void remove_mouse() {
@@ -342,6 +364,7 @@ void show_mouse() {
 // *
 //************************************************************************
 void structure() {
+fprintf(stderr, "[ERROR] >>> Entering structure()\n");
   init_mouse();
   setbkcolor(0);
   cleardevice();
@@ -421,6 +444,7 @@ void structure() {
   button_3d(390, 350, 420, 370, UNCLICKED, "M-", 0);
   button_3d(430, 350, 460, 370, UNCLICKED, "MR", 0);
 
+fprintf(stderr, "[WARN] <<< Exiting structure()\n");
 }
 //********************************************************
 // *
@@ -428,25 +452,38 @@ void structure() {
 // *
 //********************************************************
 void main() {
+fprintf(stderr, "[ERROR] >>> Entering main()\n");
   clrscr();
 
   double y = 0, z = 0, pnt, pnt1 = 0, x = 0, r = 0;
+fprintf(stderr, "[ERROR] main(): y → %f\n", y);
+fprintf(stderr, "[ERROR] main(): pnt1 → %f\n", pnt1);
+fprintf(stderr, "[ERROR] main(): z → %f\n", z);
+fprintf(stderr, "[ERROR] main(): x → %f\n", x);
 
   int gdriver = DETECT, gmode, errorcode;
   int i;
   initgraph( & gdriver, & gmode, "C:\\TURBOC3\\BGI");
   midx = getmaxx() / 2;
+fprintf(stderr, "[ERROR] main(): midx → %d\n", midx);
+fprintf(stderr, "[DEBUG] main(): midx → %d\n", midx);
   midy = getmaxy() / 2;
+fprintf(stderr, "[ERROR] main(): midy → %d\n", midy);
   structure();
   gotoxy(row, col);
+fprintf(stderr, "[DEBUG] main(): midy → %d\n", midy);
   printf("\t\t\t\t\t");
   gotoxy(row, col);
   printf("0");
   mem = (float * ) malloc(y * sizeof(float));
+fprintf(stderr, "[ERROR] main(): mem → %d\n", mem);
+  fprintf(stderr, "[DEBUG] main(): mem → %d\n", mem);
   while (ch != 27 && ch1 != 27) //While Escape is not pressed
   { //and if base is not 10
     pnt1 = 0; //no doubleing point entered Yet
     ch2 = '0';
+	fprintf(stderr, "[ERROR] main(): ch2 → %d\n", ch2);
+	fprintf(stderr, "[DEBUG] main(): ch2 → %d\n", ch2);
     // for(int a=0;ch!=27;a++)//a indicates whether a no. has been entered or not
     while (ch2 != 27)
     //a=0 means that no no. has been entered yet
@@ -454,6 +491,8 @@ void main() {
       if (bflagp != 'u') {
         //gotoxy(row,col);
         dummy = input();
+		fprintf(stderr, "[ERROR] main(): dummy → %d\n", dummy);
+		fprintf(stderr, "[DEBUG] main(): dummy → %d\n", dummy);
  if (dummy != 'o') {
           gotoxy(row, col);
           printf("The trail version does not support this feature");
@@ -465,6 +504,7 @@ void main() {
         y = 0;
         z = 0;
         ch = '0';
+		fprintf(stderr, "[ERROR] main(): ch → %d\n", ch);
         gotoxy(row, col);
         printf("\t\t\t\t\t\t");
         gotoxy(row, col);
@@ -476,6 +516,7 @@ void main() {
       ch = input();
       if (ch == '>' || ch == '<' || ch == '?') {
         sflag = 0;
+		fprintf(stderr, "[DEBUG] main(): sflag → %d\n", sflag);
         if (ch == '>') //M+
           *
           mem += y;
@@ -492,8 +533,10 @@ void main() {
         }
         if ( * mem == 0)
           mflag = 0;
+		fprintf(stderr, "[DEBUG] main(): mflag → %d\n", mflag);
         if ( * mem != 0)
           mflag = 1;
+		fprintf(stderr, "[ERROR] main(): mflag → %d\n", mflag);
       }
       if (mflag == 0) {
         gotoxy(row, 7);
@@ -510,6 +553,7 @@ void main() {
 
       if (ch == 'a') {
         sflag = 0;
+		fprintf(stderr, "[ERROR] main(): sflag → %d\n", sflag);
         y = 0;
         gotoxy(row, col);
         printf("\t\t\t\t\t");
@@ -624,7 +668,10 @@ void main() {
           sflag = 0;
           if (flag != 'r') {
             flagp = flag;
+			fprintf(stderr, "[ERROR] main(): flagp → %d\n", flagp);
+			fprintf(stderr, "[DEBUG] main(): flagp → %d\n", flagp);
             flag = 'r';
+			fprintf(stderr, "[ERROR] main(): flag → %d\n", flag);
             y = angle_conv(y);
             flag = flagp;
           }
@@ -806,6 +853,7 @@ void main() {
             z = x + z;
             pnt1 = pnt1 * .1;
             gotoxy(row, col);
+			fprintf(stderr, "[DEBUG] main(): pnt1 → %f\n", pnt1);
             printf("\t\t\t\t ");
             gotoxy(row, col);
             printf("%g", z);
@@ -909,6 +957,7 @@ void main() {
       printf("%g", y);
       ch = ch1;
       ch1 = '0';
+	fprintf(stderr, "[ERROR] main(): ch1 → %d\n", ch1);
       if (ch == '=' || ch1 == '=')
         break;
     }
@@ -935,6 +984,7 @@ void main() {
   remove_mouse();
   exit(0);
 
+fprintf(stderr, "[WARN] <<< Exiting main()\n");
 }
 
 //************************************************************
@@ -944,6 +994,7 @@ void main() {
 //************************************************************
 
 char input() {
+fprintf(stderr, "[ERROR] >>> Entering input()\n");
   X = 0;
   Y = 0;
   char ch;
@@ -954,6 +1005,8 @@ char input() {
     button_3d(328, 140, 428, 160, UNCLICKED, "HEX", 0);
     button_3d(438, 140, 538, 160, UNCLICKED, "BIN", 0);
     bflag = 'u';
+	fprintf(stderr, "[ERROR] input(): bflag → %d\n", bflag);
+	fprintf(stderr, "[DEBUG] input(): bflag → %d\n", bflag);
   }
   do {
     mouse();
@@ -967,6 +1020,7 @@ char input() {
       button_3d(350, 205, 380, 225, UNCLICKED, "7", 0);
       show_mouse();
       ch = '7';
+	fprintf(stderr, "[ERROR] input(): ch → %c\n", ch);
       return ch;
     }
 
@@ -1223,6 +1277,7 @@ char input() {
       show_mouse();
       ch = '~';
       sflag = 1;
+	fprintf(stderr, "[DEBUG] input(): sflag → %d\n", sflag);
       return ch;
     }
 
@@ -1444,7 +1499,10 @@ char input() {
       show_mouse();
       ch = 'd';
       flagp = flag;
+	fprintf(stderr, "[ERROR] input(): flagp → %d\n", flagp);
       flag = ch;
+	fprintf(stderr, "[ERROR] input(): flag → %d\n", flag);
+      fprintf(stderr, "[DEBUG] input(): flagp → %d\n", flagp);
       return ch;
     } 
 //**************************
@@ -1462,6 +1520,9 @@ char input() {
       ch = 'r';
       flagp = flag;
       flag = ch;
+	fprintf(stderr, "[ERROR] input(): flag → %d\n", flag);
+	fprintf(stderr, "[DEBUG] input(): flagp → %d\n", flagp);
+      fprintf(stderr, "[DEBUG] input(): flag → %d\n", flag);
 
       return ch;
     }
@@ -1501,7 +1562,9 @@ char input() {
       show_mouse();
       ch = 'u';
       bflagp = bflag;
+	fprintf(stderr, "[ERROR] input(): bflagp → %d\n", bflagp);
       bflag = ch;
+      fprintf(stderr, "[DEBUG] input(): bflagp → %d\n", bflagp);
       return ch;
     }
     if (X >= 218 && X <= 318 && Y >= 140 && Y <= 160) // Condition For oct
@@ -1569,6 +1632,7 @@ char input() {
 
   } while (kbhit() == 0);
   ch = getch();
+  fprintf(stderr, "[WARN] <<< Exiting input()\n");
   return ch;
 }
 
@@ -1578,9 +1642,11 @@ char input() {
 // *
 //***********************************************
 double add(double x, double y, char ch) {
+fprintf(stderr, "[ERROR] >>> Entering add(x=%f,y=%f,ch=%c)\n", x, y, ch);
   switch (ch) {
   case '+':
     y = x + y;
+	fprintf(stderr, "[ERROR] add(x=%f,y=%f,ch=%c): y → %f\n", x, y, ch, y);
     break;
   case '-':
     y = x - y;
@@ -1591,13 +1657,16 @@ double add(double x, double y, char ch) {
   case '/':
     y = x / y;
   }
+fprintf(stderr, "[WARN] <<< Exiting add(x=%f,y=%f,ch=%c)\n", x, y, ch);
   return y;
 }
 
 double angle_conv(double no) {
+fprintf(stderr, "[ERROR] >>> Entering angle_conv(no=%f)\n", no);
   if (flagp == 'd') {
     if (flag == 'r') {
       no = no * PI / 180;
+	fprintf(stderr, "[ERROR] angle_conv(no=%f): no → %f\n", no, no);
     }
     if (flag == 'g') {
       no = no * 1.1111111;
@@ -1617,19 +1686,25 @@ double angle_conv(double no) {
       no = no / 1.1111111;
     }
   }
+fprintf(stderr, "[WARN] <<< Exiting angle_conv(no=%f)\n", no);
   return (no);
 }
 
 void basecng(double y, double pnt1) {
+fprintf(stderr, "[ERROR] >>> Entering basecng(y=%f,pnt1=%f)\n", y, pnt1);
   char str[17];
   if (pnt1 != 0) {
     gotoxy(row, col);
     printf("The trial version does not support this feature");
     getch();
     bflag = 'u';
+	fprintf(stderr, "[ERROR] basecng(y=%f,pnt1=%f): bflag → %d\n", y, pnt1, bflag);
+	fprintf(stderr, "[DEBUG] basecng(y=%f,pnt1=%f): bflag → %d\n", y, pnt1, bflag);
     bflagp = '0';
+	fprintf(stderr, "[ERROR] basecng(y=%f,pnt1=%f): bflagp → %d\n", y, pnt1, bflagp);
     main();
   }
+fprintf(stderr, "[DEBUG] basecng(y=%f,pnt1=%f): bflagp → %d\n", y, pnt1, bflagp);
   if (bflagp != 'u') {
     gotoxy(row, col);
     printf("The trial version does not support this feature ");
@@ -1669,5 +1744,6 @@ void basecng(double y, double pnt1) {
     break;
   }
   bflag = 'u';
+fprintf(stderr, "[WARN] <<< Exiting basecng(y=%f,pnt1=%f)\n", y, pnt1);
 }
  
